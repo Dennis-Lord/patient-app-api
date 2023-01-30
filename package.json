@@ -1,0 +1,34 @@
+{
+  "name": "patient-app-api",
+  "version": "1.0.0",
+  "description": "development api for patient app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dennis-Lord/patient-app-api.git"
+  },
+  "keywords": [
+    "patient",
+    "app",
+    "patient",
+    "app",
+    "api",
+    "api",
+    "app",
+    "api"
+  ],
+  "author": "Dennis Lord",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dennis-Lord/patient-app-api/issues"
+  },
+  "homepage": "https://github.com/Dennis-Lord/patient-app-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.9.0"
+  }
+}
