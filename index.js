@@ -1,13 +1,12 @@
+import routes from './src/routes'
+
 const express = require('express')
 const app = express()
 const port = 3000
 
-
 // routes / endpoints
-/*
- * collection - medicalRecords
- * docs - referred to as medical folders for some understanding sake 
-*/
+//collection - medicalRecords, docs - referred to as medical folders
+
 // get all records
 app.get('/records', (req, res) => {
   res.send('GET req to records collection success')
