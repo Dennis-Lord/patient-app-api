@@ -1,19 +1,33 @@
+import { records } from "./model";
 
 const routes = (app) => {
     // get all records
     app.route('/records')
     .get((req, res) => {
-        res.send('success')
+        records.find({}, (err, doc) => {
+            if(err) return console.log(err);
+            res.json(doc)
+        })
     })
     // post record
     app.route('/records')
     .post((req, res) => {
-        res.send('success')
+        let r = new records(req.body)
+
+        r.save((err, doc) => {
+            if(err) return console.log(err);
+            res.json(doc)
+        })
     })
 
     app.route('/records/:id')
     .get((req, res) => {
-        res.send('success')
+        records.findById(req.params.id, (err, doc) => {
+            if(err){
+                res.send(err);
+            }
+            res.json(doc);
+        });
     })
     // post request 
     .post((req, res) => {
