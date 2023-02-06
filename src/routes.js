@@ -20,29 +20,35 @@ const routes = (app) => {
         })
     })
 
-    app.route('/records/:id')
+    app.route('/records/:userId')
     .get((req, res) => {
-        records.findById(req.params.id, (err, doc) => {
+        records.findById(req.params.userId, (err, doc) => {
             if(err){
                 res.send(err);
             }
             res.json(doc);
         });
     })
-    // post request 
-    .post((req, res) => {
-        res.send('POST req to add new doc success')
-    })
-    // put request
+
+    // put request to update specified document
     .put((req, res) => {
-        console.log(req.params)
-        res.send('PUT req to update specified doc success')
+        records.findOneAndUpdate({ _id: req.params.userId},req.body, { new: true, useFindAndModify: false }, (err, doc) => {
+            if(err){
+                res.send(err);
+            }
+            res.json(doc);
+        });
     })
+
     // delete request
     .delete((req, res) => {
-        console.log(req.params)
-        res.send('PUT req to delete specified doc success')
-      })
+        records.findOneAndRemove({ _id: req.params.userId}, (err, doc) => {
+            if(err){
+                res.send(err);
+            }
+            res.json({message: 'Successfully deleted medical record'});
+        })
+    })
 };
 
 export default routes;

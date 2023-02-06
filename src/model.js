@@ -80,16 +80,13 @@ const folders = new Schema({
                 time: 'string',
                 drugname: 'string',
                 route: 'string',
-                dose: {
-                    amount: 'string',
-                     unit: 'string'
-                    },
+                dosage: 'string'
                 },
             infusions: {
                 type: 'object',
                 date: 'string', 
                 time: 'string', 
-                infusion: 'string'
+                drug: 'string'
                 },
             drugs: {
                     type: 'object',
@@ -160,23 +157,13 @@ const folders = new Schema({
             referringh: 'string',
             referredh: 'string',
             nameofdoctor: 'string',
-            summaryofhistory: 'string',
-            referingdiagnosis: 'string',
+            summary: 'string',
+            diagnosis: 'string',
             investigationsandmanagement: 'string',
             durationofmanagement: 'string',
             reason: 'string',
             signatureandstamp: 'string'
-        },
-        documents: {
-            type: 'object',
-            documentid: 'string',
-            document: {
-                type: 'object',
-                name: 'string',
-                tag: 'string',
-                image: 'string',
-                }
-            }
+        }
     }
 )
 
