@@ -23,5 +23,5 @@ routes(app);
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`EHR mimic api listening on port ${port}`)
 })

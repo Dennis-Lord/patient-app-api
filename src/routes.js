@@ -49,6 +49,19 @@ const routes = (app) => {
             res.json({message: 'Successfully deleted medical record'});
         })
     })
+
+    // backup specific record to firestore
+    app.route('/backup/:userId')
+    .post((req, res) => {
+        let document;
+        records.findById(req.params.userId, (err, doc) => {
+            if(err){
+                res.send(err);
+            }
+            document = json(doc);
+        });
+
+    })
 };
 
 export default routes;
