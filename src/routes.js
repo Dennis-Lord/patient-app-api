@@ -1,7 +1,6 @@
+import { db } from "../firebaseConfig";
 import { records } from "./model";
-
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+import { doc, updateDoc } from "firebase/firestore";
 
 const routes = (app) => {
     // get all records
@@ -57,28 +56,26 @@ const routes = (app) => {
 
     // backup specific record to firestore
     app.route('/backup/:_id')
-    .post((req, res) => {
+    .post( (req, res) => {
+        const documentId = req.params._id;
+        const userId = req.query.user;
+
         // find document to backup
-        records.findById(req.params._id, async (err, doc) => {
+        return records.findById(documentId, (err, obj) => {
+            const document = JSON.stringify(obj);
+
+            if(document != undefined) {
+                const doc_update = doc(db, "records", userId);
+
+                updateDoc(doc_update, {
+                medical_document: document
+                });
+                res.send('success')
+            }
             if(err){
                 res.send(err);
             }
-
-            // fetch request options 
-            const requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify(doc), // document being backed up to firestore
-                redirect: 'follow'
-            };
-
-            const d = await fetch("http://127.0.0.1:5001/patient-app-api-de1a9/us-central1/app/create", requestOptions)
-            .then((response) => {
-                return response
-            })
-
-            res.send(d.status)
-        });
+        })
     })
 };
 
