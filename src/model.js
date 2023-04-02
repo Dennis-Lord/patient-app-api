@@ -2,169 +2,67 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 
 const folders = new Schema({
-    userId: 'number',
     hName: 'string',
-    address: {
+    hLocation: {
         type: 'object',
         country: 'string',
-        post: 'string'
+        postal: 'string',
+        street: 'string'
     },
-    hcontact: 'array',
-    // hemail: 'string',
-    // hwebsite: 'string',
-    // profile: {
-    //     type: 'object',
-    //     dategenerated: 'date',
-    //     name: 'string',
-    //     gender: 'string',
-    //     title: 'string',
-    //     age: 'string',
-    //     bloodType: 'string',
-    //     sponsors: {
-    //         type: 'object',
-    //         nameofprovider: 'string',
-    //         providersacronym: 'string',
-    //         idnumber: 'string',
-    //         verificationtag: 'string',
-    //     },
-    //     bodymeasurements: {
-    //         type: 'object',
-    //         weight: {
-    //             type: 'object',
-    //             dateRecorded: 'date',
-    //             measure: 'string',
-    //             unit: 'string',
-    //         },
-    //         height: {
-    //             type: 'object',
-    //             dateRecorded: 'date',
-    //             measure: 'string',
-    //             unit: 'string',
-    //         }
-    //     }
-    // },
-    // medicalfolder: {
-    //     type: 'object',
-    //     medicalfiles: {
-    //         type: 'object',
-    //         diseasename: 'string',
-    //         diagnosisdate: 'string',
-    //         treatementstarted: 'string',
-    //         treatementended: 'string',
-    //         flag: 'string',
-    //         practisioner: {
-    //             type: 'object',
-    //             nameofpractisioner: 'string',
-    //             title: 'string',
-    //             practisionersnotes: {
-    //                 type: 'object',
-    //                 notesDate: 'string',
-    //                 time: 'string',
-    //                 notes: 'string',
-    //                 }
-    //     },
-    //     diagnosis: 'string',
-    //     complaints: 'array',
-    //     examinations: {
-    //         type: 'object',
-    //         bodypart: 'string', 
-    //         eresult: 'string'
-    //         }
-    //     ,
-    //     recommendations: 'string',
-    //     drugadministered: {
-    //         type: 'object',
-    //         startdoses: {
-    //             type: 'object',
-    //             date: 'string',
-    //             time: 'string',
-    //             drugname: 'string',
-    //             route: 'string',
-    //             dosage: 'string'
-    //             },
-    //         infusions: {
-    //             type: 'object',
-    //             date: 'string', 
-    //             time: 'string', 
-    //             drug: 'string'
-    //             },
-    //         drugs: {
-    //                 type: 'object',
-    //                 startdate: 'string',
-    //                 drug: 'string',
-    //                 route: 'string',
-    //                 fregduration: 'string',
-    //                 // seek clearance
-    //             }
-    //         ,
-    //     },
-    //     fourhourchart: {
-    //         type: 'object',
-    //             date: 'string',
-    //             temperature: {
-    //                 type: 'object',
-    //                 unit: 'string',
-    //                 measure: {
-    //                     type: 'object',
-    //                     time: 'string',
-    //                     value: 'string',
-    //                 },
-                
-    //             },
-    //             pulserate: {
-    //                 type: 'object',
-    //                 unit: 'string',
-    //                 measure: {
-    //                     type: 'object',
-    //                     time: 'string',
-    //                     value: 'string'
-    //                 },
-    //             },
-    //             respirations: {
-    //                 type: 'object',
-    //                 measure: {
-    //                     type: 'object',
-    //                     time: 'string',
-    //                     value: 'string',
-    //                 },
-    //             }
-    
-    //         }
-    //     },
-    //     analysisfiles: {
-    //             type: 'object',
-    //             analysisname: 'string',    
-    //             registrationdate: 'string', 
-    //             reportdate: 'string',
-    //             reportflag: 'string',
-    //             labname: 'string',
-    //             country: 'string',
-    //             address: 'string'
-    //             },
-    //             result:{
-    //                 type: 'object',
-    //                 name: 'string',
-    //                 resultobserved: 'string',
-    //                 flag: 'string', 
-    //                 unit: 'string', 
-    //                 referencerange: 'string', 
-    //                 polarity: 'string',
-    //                 remarks: 'string'
-    //             },
-    //         },
-    //     referrals: {
-    //         type: 'object',
-    //         referringh: 'string',
-    //         referredh: 'string',
-    //         nameofdoctor: 'string',
-    //         summary: 'string',
-    //         diagnosis: 'string',
-    //         investigationsandmanagement: 'string',
-    //         durationofmanagement: 'string',
-    //         reason: 'string',
-    //         signatureandstamp: 'string'
-    //     }
+    hContact: 'array',
+    hEmail: 'string',
+    hWebsite: 'string',
+    patientProfile: {
+        type: 'object',
+        dateGenerated: 'date',
+        name: 'string',
+        gender: 'string',
+        title: 'string',
+        age: 'number',
+        bloodType: 'string',
+        sponsor: {
+            type: 'object',
+            name: 'string',
+            acronym: 'string',
+            id: 'number',
+            verification: 'string',
+            expiration: 'date'
+        },
+        bodymeasurements: {
+            type: 'object',
+            weight: {
+                type: 'object',
+                dateRecorded: 'date',
+                measure: 'number',
+                unit: 'string',
+            },
+            height: {
+                type: 'object',
+                dateRecorded: 'date',
+                measure: 'number',
+                unit: 'string',
+            }
+        },
+        allergy: 'string'
+    },
+    medicalFolder: {
+        type: 'object',
+        files: 'array',
+        analysisFiles: 'array',
+        // {
+        //     type: 'object',
+        //     title: 'string',    
+        //     registrationDate: 'string', 
+        //     reportDate: 'string',
+        //     reportflag: 'string',
+        //     labName: 'string',
+        //     country: 'string',
+        //     address: 'string',
+        //     street: 'string'
+        // }
+    },
     }
 )
 
 export const records = new mongoose.model('records', folders); 
+
