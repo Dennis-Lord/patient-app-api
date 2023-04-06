@@ -1,5 +1,5 @@
 import { db } from "../firebaseConfig";
-import { records } from "./model";
+import { records, files } from "./model";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 const routes = (app) => {
@@ -69,6 +69,41 @@ const routes = (app) => {
 
                 updateDoc(doc_update, {
                 medical_folders: arrayUnion(document)
+                });
+                res.send('success')
+            }
+            if(err){
+                res.send(err);
+            }
+        })
+    })
+
+    // create new collection, and document
+    app.route('/analysis/create')
+    .post((req, res) => {
+        let r = new files(req.body)
+
+        r.save((err, doc) => {
+            if(err) return console.log(err);
+            res.json(doc)
+        })
+    })
+
+    // backup analysis record to firestore
+    app.route('/analysis/:_id')
+    .post( (req, res) => {
+        const documentId = req.params._id;
+        const userId = req.query.user;
+
+        // find document to backup
+        return files.findById(documentId, (err, obj) => {
+            const document = JSON.parse(obj);
+
+            if(document != undefined) {
+                const doc_update = doc(db, "records", userId);
+
+                updateDoc(doc_update, {
+                analysis_files: arrayUnion(document)
                 });
                 res.send('success')
             }

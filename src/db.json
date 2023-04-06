@@ -108,22 +108,22 @@
                             }
                         ]
                     }
-                },
-                "referrals": [
-                    {
-                        "referredFrom": "",
-                        "referredTo": "",
-                        "nameOfDoctor": "",
-                        "summary": "",
-                        "diagnosis": "",
-                        "investigationsAndManagement": "",
-                        "durationOfManagement": "",
-                        "reason": "",
-                        "signatureAndStamp": ""
-                    }
-                ]
+                }
             }
         ],
-        "analysisFiles": []
+        "analysisFiles": [],
+        "referrals": [
+            {
+                "referredFrom": "",
+                "referredTo": "",
+                "nameOfDoctor": "",
+                "summary": "",
+                "diagnosis": "",
+                "investigationsAndManagement": "",
+                "durationOfManagement": "",
+                "reason": "",
+                "signatureAndStamp": ""
+            }
+        ]
     }
 }

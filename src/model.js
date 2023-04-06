@@ -64,5 +64,18 @@ const folders = new Schema({
     }
 )
 
-export const records = new mongoose.model('records', folders); 
+const analysis = new Schema({
+        analysisName: 'string',
+        date: 'date',
+        result: 'string',
+        lab: {
+            name: 'string',
+            street: 'string'
+        },
+        ref: 'string'
+})
 
+const records = new mongoose.model('records', folders); 
+const files = new mongoose.model('analysis', analysis);
+
+export {files, records};
