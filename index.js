@@ -4,14 +4,14 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 3001
 const cors = require('cors');
 
 // mongoose connection
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://127.0.0.1:27017/patientDB', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 })
 
 // bodyParser setup 

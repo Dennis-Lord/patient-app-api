@@ -1,8 +1,68 @@
+import { stringify } from "node:querystring";
 import { db } from "../firebaseConfig";
 import { records, files } from "./model";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore";
+import { Buffer } from 'node:buffer';
+
+// module import - cipher
+const {
+    scrypt,
+    randomFill,
+    createCipheriv,
+    scryptSync,
+    createDecipheriv,
+  } = require('node:crypto');
+
 
 const routes = (app) => {
+
+    const fill = new Uint8Array(16);
+
+    // app.route('/e').post((req, res) => {
+    //     // const value = req.params.value;
+    //     console.log(req.body)
+    //     res.send({body: req.body})
+
+
+    //     const algorithm = 'aes-192-cbc'; // algorithm used to cipher
+    //     const password = 'password'; // Password used to generate key
+
+    //     // First, we'll generate the key. The key length is dependent on the algorithm.
+    //     // In this case for aes192, it is 24 bytes (192 bits).
+    //     // scrypt(password, 'salt', 24, (err, key) => {
+    //     //     if (err) throw err;
+    //     //     // Then, we'll generate a random initialization vector
+    //     //     randomFill(fill, (err, iv) => {
+    //     //     if (err) throw err;
+    //     //         console.log(iv)
+    //     //     const cipher = createCipheriv(algorithm, key, iv);
+        
+    //     //     let encrypted = cipher.update(value, 'utf8', 'hex');
+    //     //     encrypted += cipher.final('hex');
+    //     //     res.send(encrypted);
+    //     //     });
+    //     // });   
+    // })
+
+    // app.route('/d/:enc').get((req, res) => {
+    //     const value = req.params.enc;
+
+    //     const algorithm = 'aes-192-cbc'; // algorithm used to cipher
+    //     const password = 'password'; // Password used to generate key
+
+    //     const key = scryptSync(password, 'salt', 24);
+    //     // The IV is usually passed along with the ciphertext.
+    //     const iv = fill; // Initialization vector.
+
+    //     const decipher = createDecipheriv(algorithm, key, iv);
+
+    //     // Encrypted using same algorithm, key and iv.
+    //     const encrypted =value;
+    //     let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    //     decrypted += decipher.final('utf8');
+    //     res.send(decrypted); 
+    // })
+
     // get all records
     app.route('/records')
     .get((_req, res) => {
@@ -62,20 +122,44 @@ const routes = (app) => {
 
         // find document to backup
         return records.findById(documentId, (err, obj) => {
-            const document = JSON.parse(obj);
+            const stringifiedDoc = JSON.stringify(obj); // json.parse
 
-            if(document != undefined) {
+            if(stringifiedDoc != undefined) {
                 const doc_update = doc(db, "records", userId);
-
+                const alteredDoc = stringifiedDoc.replace("_id", "id")
+                const finalDoc = JSON.parse(alteredDoc)
+                // res.json(finalDoc)
+                res.send(finalDoc)
                 updateDoc(doc_update, {
-                medical_folders: arrayUnion(document)
+                medical_folders: arrayUnion(finalDoc)
                 });
                 res.send('success')
             }
             if(err){
                 res.send(err);
             }
-        })
+        }).catch(err => console.log(err))
+    })
+
+    app.route('/get-app-id/:hospitalId')
+    .get(async(req, res) => {
+        const hospital_id = req.params.hospitalId;
+        const docRef = doc(db, 'appID',  `${hospital_id}`);
+
+        const appid = await getDoc(docRef).then(snapshot => {
+            if(snapshot.exists()) {
+                const userAppId = snapshot.data()
+                return userAppId;
+              }
+              else{
+                return null
+              }
+          }).catch(e => {
+              return e;
+          })
+        
+        // res.send(appid)
+        res.json(appid)
     })
 
     // create new collection, and document
@@ -97,15 +181,18 @@ const routes = (app) => {
 
         // find document to backup
         return files.findById(documentId, (err, obj) => {
-            const document = JSON.parse(obj);
+            const stringifiedDoc = JSON.stringify(obj);
 
-            if(document != undefined) {
+            if(stringifiedDoc != undefined) {
                 const doc_update = doc(db, "records", userId);
+                const alteredDoc = stringifiedDoc.replace("_id", "id")
+                const finalDoc = JSON.parse(alteredDoc)
 
                 updateDoc(doc_update, {
-                analysis_files: arrayUnion(document)
+                analysis_files: arrayUnion(finalDoc)
                 });
                 res.send('success')
+                // res.send(finalDoc)
             }
             if(err){
                 res.send(err);
