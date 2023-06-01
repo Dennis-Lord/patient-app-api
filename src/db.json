@@ -1,129 +1,86 @@
+
 {
-    "hName": "Fankyenebra Hospital",
-    "hLocation": {
-        "country": "Ghana",
-        "postal": "P.O.BOX KS 7162",
-        "street": "Near Fankyenebra Basic School"
+    "labTests": [{
+        "title": "Blood Test.pdf",
+        "flag": "normal",
+        "date": "12.01.2023"
+    }],
+    "referrals": [{
+        "title": "KATH",
+        "flag": "ref",
+        "date": "12.01.2023"
     },
-    "hContact": ["0559120703", "0249744563"],
-    "hEmail": "fankyenebrapower.hospital@yahoo.com",
-    "hWebsite": "fankyenebrahospital.com",
-    "patientProfile": {
-        "dateGenerated": "02.02.2022",
-        "name": "Anonymous User",
-        "gender": "Male",
-        "title": "Mr",
-        "age": 25,
-        "bloodType": "O",
-        "sponsor": {
-            "name": "National Health Insurance Scheme",
-            "acronym": "NHIS",
-            "id": 76756567,
-            "verification": "verified",
-            "expiration": "05.06.2025"
-        },
-        "bodymeasurements": {
-            "weight": {
-                "dateRecorded": "22.04.2022",
-                "measure": 22,
-                "unit": "kg"
-            },
-            "height": {
-                "dateRecorded": "22.04.2022",
-                "measure": 164,
-                "unit": "cm"
-            }
-        },
-        "allergy": "Beans"
-    },
-    "medicalFolder": {
-        "files": [
-            {
-                "disease": "",
-                "diagnosisDate": "",
-                "treatementStarted": "",
-                "treatementEnded": "",
-                "flag": "",
-                "practisioner": {
-                    "name": "",
-                    "title": "",
-                    "notes": {
-                        "notesDate": "",
-                        "time": "",
-                        "notes": ""
-                    }
-                },
-                "diagnosis": "",
-                "complaints": "",
-                "examinations": {
-                    "bodypart": "", 
-                    "result": ""
-                    },
-                "recommendations": [""],
-                "drugsAdministered": {
-                    "startDoses": {
-                        "date": "",
-                        "time": "",
-                        "drugName": "",
-                        "route": "",
-                        "dosage": ""
-                    },
-                    "infusions": {
-                        "date": "", 
-                        "time": "", 
-                        "drugName": ""
-                    },
-                    "drugs": {
-                        "drug": "",
-                        "ofType": "",
-                        "route": "",
-                        "dose": ""
-                    }
-                },
-                "fourHourChart": {
-                    "date": "",
-                    "temperature": {
-                        "unit": "",
-                        "measure": [
-                            {
-                                "time": "",
-                                "value": 0.0
-                            }
-                        ]
-                    },
-                    "pulserate": {
-                        "unit": "",
-                        "measure": [
-                            {
-                                "time": "",
-                                "value": 0.0
-                            }
-                        ]
-                    },
-                    "respirations": {
-                        "measure": [
-                            {
-                                "time": "",
-                                "value": 0.0
-                            }
-                        ]
-                    }
-                }
-            }
-        ],
-        "analysisFiles": [],
-        "referrals": [
-            {
-                "referredFrom": "",
-                "referredTo": "",
-                "nameOfDoctor": "",
-                "summary": "",
-                "diagnosis": "",
-                "investigationsAndManagement": "",
-                "durationOfManagement": "",
-                "reason": "",
-                "signatureAndStamp": ""
-            }
-        ]
+    {
+        "title": "OAK Specialist H.",
+        "flag": "ref",
+        "date": "13.07.2022"
     }
+],
+    "sponsor": [
+        {    
+        "name": "National Health Insurance",
+        "acronym": "NHIS",
+        "id": "12332200101",
+        "pName": "",
+        "registration": "22.04.2021",
+        "expiration": "23.06.2024"
+    }],
+    "xRay": [
+        {
+        "name": "Brain MRI",
+        "doctor": "Dr. Edna Konadu",
+        "link": "mri-scan.pdf"
+        }
+    ],
+    "profile": {
+        "dateGenerated": "date",
+        "name": "",
+        "gender": "",
+        "title": "",
+        "age": "",
+        "bloodType": "B+",
+        "weight": {
+            "dateRecorded": "22.04.2022",
+            "measure": 110,
+            "unit": "kg"
+        },
+        "height": {
+            "dateRecorded": "22.04.2022",
+            "measure": 164,
+            "unit": "cm"
+        },
+        "allergy": "Peanut, Bee sting"
+    },
+    "medicalCard": {
+        "name": "",
+        "id": "231.233.2002.1",
+        "registration": "",
+        "hospital": "Fankyenebra Hospital"
+    },
+    "hospital": {
+        "name": "Fankyenebra Hospital",
+        "postal": "P.O.BOX KS 7162",
+        "street": "Near Fankyenebra Basic School",
+        "website": "www.fankyenebrahospital.com",
+        "contact": "0559120703",
+        "email": "fankyenebrapower.hospital@yahoo.com"
+    },
+    "lab": {
+        "name": "Synevo",
+        "postal": "P.O.BOX KS 32",
+        "street": "Santasi-Kumasi",
+        "website": "www.Synevo-labs.com",
+        "contact": "0201220022",
+        "email": "synevolabs@gmail.com"
+    },
+    "checkUps": [
+        {
+            "title": "Covid 19 treatment",
+            "flag": "normal",
+            "date": "14.06.2022"
+        }
+    ],
+    "tips": "Reduce fat intake, cut down on sugar and opt for fruits and vegetables. This helps reduce cholesterol and blood pressure. Healthy food will also lead to better blood sugar control.",
+    "event": "02.May - Breast Cancer Screening"
 }
+

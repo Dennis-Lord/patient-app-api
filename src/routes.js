@@ -1,22 +1,21 @@
-import { stringify } from "node:querystring";
 import { db } from "../firebaseConfig";
-import { records, files } from "./model";
-import { doc, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore";
-import { Buffer } from 'node:buffer';
+import { records } from "./model";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+// import { Buffer } from 'node:buffer';
 
 // module import - cipher
-const {
-    scrypt,
-    randomFill,
-    createCipheriv,
-    scryptSync,
-    createDecipheriv,
-  } = require('node:crypto');
+// const {
+//     scrypt,
+//     randomFill,
+//     createCipheriv,
+//     scryptSync,
+//     createDecipheriv,
+//   } = require('node:crypto');
 
 
 const routes = (app) => {
 
-    const fill = new Uint8Array(16);
+    // const fill = new Uint8Array(16);
 
     // app.route('/e').post((req, res) => {
     //     // const value = req.params.value;
@@ -116,35 +115,49 @@ const routes = (app) => {
 
     // backup specific record to firestore
     app.route('/backup/:_id')
-    .post( (req, res) => {
+    .post((req, res) => {
         const documentId = req.params._id;
         const userId = req.query.user;
 
-        // find document to backup
-        return records.findById(documentId, (err, obj) => {
-            const stringifiedDoc = JSON.stringify(obj); // json.parse
+        const doc_update = doc(db, "records", userId);
 
-            if(stringifiedDoc != undefined) {
-                const doc_update = doc(db, "records", userId);
-                const alteredDoc = stringifiedDoc.replace("_id", "id")
-                const finalDoc = JSON.parse(alteredDoc)
-                // res.json(finalDoc)
-                res.send(finalDoc)
-                updateDoc(doc_update, {
-                medical_folders: arrayUnion(finalDoc)
-                });
-                res.send('success')
-            }
+        // find document to backup
+        const localDoc = records.findById(documentId, (err, doc) => {
             if(err){
                 res.send(err);
             }
-        }).catch(err => console.log(err))
+            const stringifiedDoc = JSON.stringify(doc);
+            const alteredDoc = stringifiedDoc.replace("_id", "id")
+            const finalDoc = JSON.parse(alteredDoc)
+            
+            updateDoc(doc_update, {
+                "medical_data": finalDoc
+                }).then(r => {res.sendStatus(200)});
+        });
+        
+        // console.log(localDoc);
+        // res.send(JSON.parse(localDoc))
+        
+        // const stringifiedDoc = JSON.stringify(obj);
+
+        // const doc_update = doc(db, "records", userId);
+        // const alteredDoc = stringifiedDoc.replace("_id", "id")
+        // const finalDoc = JSON.parse(alteredDoc)
+        // return finalDoc;
+
+        
+
+        // const update = updateDoc(doc_update, {
+        //     medical_folders: arrayUnion(finalDoc)
+        //     }).then(r => {return r});
+
+        //     res.send(update)
     })
 
     app.route('/get-app-id/:hospitalId')
     .get(async(req, res) => {
         const hospital_id = req.params.hospitalId;
-        const docRef = doc(db, 'appID',  `${hospital_id}`);
+        const docRef = doc(db, 'connect',  `${hospital_id}`);
 
         const appid = await getDoc(docRef).then(snapshot => {
             if(snapshot.exists()) {
@@ -160,44 +173,6 @@ const routes = (app) => {
         
         // res.send(appid)
         res.json(appid)
-    })
-
-    // create new collection, and document
-    app.route('/analysis/create')
-    .post((req, res) => {
-        let r = new files(req.body)
-
-        r.save((err, doc) => {
-            if(err) return console.log(err);
-            res.json(doc)
-        })
-    })
-
-    // backup analysis record to firestore
-    app.route('/analysis/:_id')
-    .post( (req, res) => {
-        const documentId = req.params._id;
-        const userId = req.query.user;
-
-        // find document to backup
-        return files.findById(documentId, (err, obj) => {
-            const stringifiedDoc = JSON.stringify(obj);
-
-            if(stringifiedDoc != undefined) {
-                const doc_update = doc(db, "records", userId);
-                const alteredDoc = stringifiedDoc.replace("_id", "id")
-                const finalDoc = JSON.parse(alteredDoc)
-
-                updateDoc(doc_update, {
-                analysis_files: arrayUnion(finalDoc)
-                });
-                res.send('success')
-                // res.send(finalDoc)
-            }
-            if(err){
-                res.send(err);
-            }
-        })
     })
 };
 

@@ -2,17 +2,18 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 
 const folders = new Schema({
-    hName: 'string',
-    hLocation: {
-        type: 'object',
-        country: 'string',
-        postal: 'string',
-        street: 'string'
-    },
-    hContact: 'array',
-    hEmail: 'string',
-    hWebsite: 'string',
-    patientProfile: {
+    labTests: 'array',
+    referrals: 'array',
+    sponsor: 'array',
+    //  name: 'string',
+    //  acronym: 'string',
+    //  id: 'number',
+    //  pName: ,
+    //  registration: 'string',
+    //  expiration: 'date'
+    xRay: 'array',
+    // name, doctor, link
+    profile: {
         type: 'object',
         dateGenerated: 'date',
         name: 'string',
@@ -20,62 +21,52 @@ const folders = new Schema({
         title: 'string',
         age: 'number',
         bloodType: 'string',
-        sponsor: {
+        weight: {
             type: 'object',
-            name: 'string',
-            acronym: 'string',
-            id: 'number',
-            verification: 'string',
-            expiration: 'date'
+            dateRecorded: 'date',
+            measure: 'number',
+            unit: 'string',
         },
-        bodymeasurements: {
+        height: {
             type: 'object',
-            weight: {
-                type: 'object',
-                dateRecorded: 'date',
-                measure: 'number',
-                unit: 'string',
-            },
-            height: {
-                type: 'object',
-                dateRecorded: 'date',
-                measure: 'number',
-                unit: 'string',
-            }
+            dateRecorded: 'date',
+            measure: 'number',
+            unit: 'string',
         },
         allergy: 'string'
     },
-    medicalFolder: {
+    medicalCard: {
         type: 'object',
-        files: 'array',
-        analysisFiles: 'array',
-        // {
-        //     type: 'object',
-        //     title: 'string',    
-        //     registrationDate: 'string', 
-        //     reportDate: 'string',
-        //     reportflag: 'string',
-        //     labName: 'string',
-        //     country: 'string',
-        //     address: 'string',
-        //     street: 'string'
-        // }
+        name: 'string',
+        id: 'string',
+        registration: 'string',
+        hospital: 'string'
     },
-    }
+    hospital: {
+        type: 'object',
+        name: 'string',
+        postal: 'string',
+        street: 'string',
+        website: 'string',
+        contact: 'string',
+        email: 'string'
+    },
+    lab: {
+        type: 'object',
+        name: 'string',
+        postal: 'string',
+        street: 'string',
+        website: 'string',
+        contact: 'string',
+        email: 'string'
+    },
+    checkUps: 'array',
+    // title, flag, date,
+    tips: 'string',
+    event: 'string'
+}
 )
 
-const analysis = new Schema({
-        analysisName: 'string',
-        date: 'date',
-        result: 'string',
-        lab: {
-            name: 'string',
-            street: 'string'
-        },
-        ref: 'string'
-})
-
 const records = new mongoose.model('records', folders); 
-const files = new mongoose.model('analysis', analysis);
 
-export {files, records};
+export {records};
